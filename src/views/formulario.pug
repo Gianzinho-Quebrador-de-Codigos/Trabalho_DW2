@@ -1,0 +1,111 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='/publico/css/Projeto_crud.css', rel='stylesheet')
+    link(rel='stylesheet', href='/bscss/bootstrap.min.css')
+
+    script(src='/jquery/jquery.slim.min.js')
+    script(src='/popperjs/popper.min.js')
+    script(src='/bsjs/bootstrap.min.js')
+    script(src='/mask/jquery.mask.js')
+    script(src='/publico/js/JaspionSarado.js')
+
+    title Fomul&aacute;rio
+  body
+    // nome, data-nascimento, cpf, e-mail, telefone, estado civil (solteira/o, casada/o, divorciada/o, viúva/o), curso
+
+  if (mensagem)
+    script.
+      apresentarMensagem(`${mensagem}`)
+  if (estudante)
+    //Alteração  
+    main
+      form#dataForm.row.g-3(name='dataForm', action=`/alterar/${estudante.id}`, method='POST', onsubmit='return validar()')
+          img#imagemform.img-thumbnail(src='/publico/imagens/checklist.png', alt='Formulário')
+          .form-group
+            label(for='examplename1') Nome
+            input#exampleInputNome1.form-control.cor(type='text', placeholder='Insira o Nome', maxlength='50', name='exampleInputNome1', value=`${estudante.nome}`)
+          .form-group
+            label(for='examplecurso1') Data Nascimento
+            input#exampleInputData1.form-control.cor(type='date', placeholder='data-nascimento', name='exampleInputData1', value=`${estudante.dtnascimento}` )
+          .form-group
+            label(for='exampleInputEmail1') Email address
+            input#exampleInputEmail1.form-control.cor(type='email', aria-describedby='emailHelp', placeholder='Insira o Email', name='exampleInputEmail1', value=`${estudante.email}`)
+            small#emailHelp.cor
+              b Nunca compartilharemos seu e-mail com mais ningu&eacute;m.
+          .form-group
+            label(for='examplecpf1', onsubmit='return TestaCPF()') CPF
+            input#exampleInputCpf1.form-control.cor(type='text', placeholder='Insira o CPF', name='exampleInputCpf1', value=`${estudante.cpf}`)
+          .form-group
+            label(for='exampletelefone1') Telefone
+            input#exampleInputTelefone1.form-control.cor(type='text', placeholder='(XX) XXXXX-XXXX', name='exampleInputTelefone1', value=`${estudante.telefone}`)
+            .form-group
+              label.form-label(for='disabledSelect') Estado C&iacute;vil
+              select#disabledSelect.form-select(name='disabledSelect')
+                each valor, chave in estadocivil 
+                  if estudante.estadocivil == chave
+                    option(value=`${chave}`,selected)=`${valor}`
+                  else 
+                    option(value=`${chave}`)=`${valor}`
+          .form-group
+            label(for='examplecurso1') Insira seu Curso
+            input#exampleInputCurso1.form-control.cor(type='text', placeholder='Insira seu Curso', name='exampleInputCurso1', value=`${estudante.curso}`)
+          br
+          p fique tranquilo, caso algo der errado eu vou avisar ;)
+          button.btn.btn-primary(type='submit') Submit
+          .position-fixed.bottom-0.end-0.p-3(style='z-index: 11')
+            #liveToast.toast(role='alert', aria-live='assertive', aria-atomic='true')
+              .toast-header
+                img.rounded.me-2(src='/publico/imagens/Alerta.png', alt='Alerta!', style='width: 20px;')
+                strong.me-auto Hummm.. Aconteceu algo!
+                small
+                button.btn-close(type='button', data-bs-dismiss='toast', aria-label='Close')
+              #msgToast.toast-body.div-toast
+  else
+    //Inclusão
+    main
+      form#dataForm.row.g-3(name='dataForm', action='/cadastro-album', method='POST', onsubmit='return validar()')
+        img#imagemform.img-thumbnail(src='/publico/imagens/checklist.png', alt='Formulário')
+        .form-group
+          label(for='examplename1') Nome
+          input#exampleInputNome1.form-control.cor(type='text', placeholder='Insira o Nome', maxlength='50', name='exampleInputNome1')
+        .form-group
+          label(for='examplecurso1') Data Nascimento
+          input#exampleInputData1.form-control.cor(type='date', placeholder='data-nascimento', name='exampleInputData1')
+        .form-group
+          label(for='exampleInputEmail1') Email address
+          input#exampleInputEmail1.form-control.cor(type='email', aria-describedby='emailHelp', placeholder='Insira o Email', name='exampleInputEmail1')
+          small#emailHelp.cor
+            b Nunca compartilharemos seu e-mail com mais ningu&eacute;m.
+        .form-group
+          label(for='examplecpf1', onsubmit='return TestaCPF()') CPF
+          input#exampleInputCpf1.form-control.cor(type='text', placeholder='Insira o CPF', name='exampleInputCpf1')
+        .form-group
+          label(for='exampletelefone1') Telefone
+          input#exampleInputTelefone1.form-control.cor(type='text', placeholder='(XX) XXXXX-XXXX', name='exampleInputTelefone1')
+        .form-group
+          label.form-label(for='disabledSelect') Estado C&iacute;vil
+          select#disabledSelect.form-select(name='disabledSelect')
+            option(selected='') Selecionar
+            option(value='1') Solteira/o
+            option(value='2') Casada/o
+            option(value='3') Divorciada/o
+            option(value='4') Vi&uacute;va/o
+        .form-group
+          label(for='examplecurso1') Insira seu Curso
+          input#exampleInputCurso1.form-control.cor(type='text', placeholder='Insira seu Curso', name='exampleInputCurso1')
+        br
+        p fique tranquilo, caso algo der errado eu vou avisar ;)
+        button.btn.btn-primary(type='submit') Submit
+        .position-fixed.bottom-0.end-0.p-3(style='z-index: 11')
+        #liveToast.toast(role='alert', aria-live='assertive', aria-atomic='true')
+          .toast-header
+            img.rounded.me-2(src='/publico/imagens/Alerta.png', alt='Alerta!', style='width: 20px;')
+            strong.me-auto Hummm.. Aconteceu algo!
+            small
+            button.btn-close(type='button', data-bs-dismiss='toast', aria-label='Close')
+          #msgToast.toast-body.div-toast
+            

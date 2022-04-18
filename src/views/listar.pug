@@ -1,0 +1,53 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Listagem
+    link(href='/publico/css/crud.css', rel='stylesheet')
+    link(rel='stylesheet', href='/bscss/bootstrap.min.css')
+  body
+    main
+      if (listaCompleta && listaCompleta.length > 0)
+        a(href='/formulario')
+          button.btn.btn-secondary(type='button') Adicionar Estudante
+        table.table.table-dark.table-striped
+          thead
+            tr
+              th(scope='col') ID
+              th(scope='col') Nome
+              th(scope='col') Data Nascimento
+              th(scope='col') CPF
+              th(scope='col') E-mail
+              th(scope='col') Tel/Whats
+              th(scope='col') Estado Civil
+              th(scope='col') Curso
+              th(scope='col') Editar
+              th(scope='col') Excluir
+          tbody
+            each row in listaCompleta
+              tr
+                th(scope='row')=row.id
+                td=row.nome
+                td=row.dtnascimento
+                td=row.cpf
+                td=row.email
+                td=row.telefone
+                td=row.estadocivil
+                td=row.curso
+                td
+                  a(href=`/solicita-alterar/${row.id}`)
+                    img.icons(src='/publico/imagens/icons8-edit-24.png')
+                td
+                  a(href=`#`,onclick=`confirmarExclusao(${row.id})`)
+                    img.icons(src='/publico/imagens/icons8-lixeira-cheia-50.png')
+      else 
+        h1.titulo1="Nenhum valor encontrado"
+
+    script(src='/jquery/jquery.slim.min.js')
+    script(src='/popperjs/popper.min.js')
+    script(src='/bsjs/bootstrap.min.js')
+    script(src='/mask/jquery.mask.js')
+    script(src='/publico/js/JaspionSarado.js')
+    script(src='/publico/js/listar.js')

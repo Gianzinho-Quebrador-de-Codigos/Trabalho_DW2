@@ -1,0 +1,25 @@
+body{
+    background-image: url(/publico/imagens/gargandua.jpg);
+}
+
+main{
+    width: 1700px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+
+.icons{
+    width: 20px;
+}
+
+table{
+ margin-top: 20px;
+}
+
+.titulo1{
+    color: aliceblue;
+}
+
+td{
+    color: aliceblue;
+}

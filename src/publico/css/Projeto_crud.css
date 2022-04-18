@@ -1,0 +1,43 @@
+body{
+    background-image: url(/publico/imagens/Floresta.jpg);
+}
+
+main{
+    width: 940px;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+.cor{
+    color: azure;
+}
+p{
+    color: azure;
+    text-align: center;
+}
+#imagemform{
+    width: 150px;
+    border-radius: 50%;  
+}
+
+form{
+    margin: 40px;
+    background-color:rgb(111, 59, 196);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cor:invalid{
+outline-color: red;
+}
+
+.cor:valid{
+    outline-color:green;
+    }
+@media screen and (max-width: 768px) {
+    main{
+        width: 300px;
+        margin: 0 auto;
+        margin-top: 80px;       
+    }
+}
